@@ -1,0 +1,21 @@
+{# templates/security/login.html.twig #}
+{% if error %}
+    <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+{% endif %}
+<form action="{{ path('login') }}" method="post">
+    {# ... #}
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="_username" value="{{ last_username }}" />
+
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="_password" />
+    {# ... #}
+    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}" />
+    {# Перенаправление после сбоя #}
+    <input type="hidden" name="_failure_path" value="{{ path('forgot_password') }}" />
+    {# Настройка параметров запроса цели #}
+    <input type="hidden" name="go_to" value="{{ path('dashboard') }}" />
+    {#Настройка параметров запроса отказа #}
+    <input type="hidden" name="back_to" value="{{ path('forgot_password') }}" />
+    <input type="submit" name="login" />
+</form>
